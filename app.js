@@ -1,5 +1,5 @@
 // =====================
-// YELPCAMP APP v7.0
+// YELPCAMP APP v8.0
 // =====================
 var express 		= require("express"),
 	app 			= express(),
@@ -24,7 +24,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
 console.log(__dirname);
-seedDB();
+// seedDB(); //seed the database
 
 // PASSPORT CONFIGURATION
 app.use(require('express-session')({
