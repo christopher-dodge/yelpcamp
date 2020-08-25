@@ -1,5 +1,5 @@
 // =====================
-// YELPCAMP APP v8.0
+// YELPCAMP APP v10.0
 // =====================
 var express 		= require("express"),
 	app 			= express(),
@@ -10,7 +10,8 @@ var express 		= require("express"),
 	Campground		= require("./models/campground"),
 	Comment			= require("./models/comment"),
 	User 			= require('./models/user'),
-	seedDB			= require("./seeds");
+	seedDB			= require("./seeds"),
+	methodOverride	= require("method-override");
 
 // Requiring routes
 var commentRoutes		= require('./routes/comments'),
@@ -25,6 +26,7 @@ app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
 console.log(__dirname);
 // seedDB(); //seed the database
+app.use(methodOverride("_method"));
 
 // PASSPORT CONFIGURATION
 app.use(require('express-session')({
