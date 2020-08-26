@@ -1,5 +1,5 @@
 // =====================
-// YELPCAMP APP v11.0
+// YELPCAMP APP v12.0
 // =====================
 var express 		= require("express"),
 	app 			= express(),
@@ -21,7 +21,7 @@ var commentRoutes		= require('./routes/comments'),
 
 mongoose.set('useNewUrlParser', true);
 mongoose.set('useUnifiedTopology', true);
-mongoose.connect("mongodb://localhost/yelp_camp");
+mongoose.connect("mongodb://localhost/yelp_camp_v12");
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
