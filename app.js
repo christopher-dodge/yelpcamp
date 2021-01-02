@@ -21,7 +21,9 @@ var commentRoutes		= require('./routes/comments'),
 
 mongoose.set('useNewUrlParser', true);
 mongoose.set('useUnifiedTopology', true);
-mongoose.connect("mongodb://localhost/yelp_camp_v12");
+
+const port = process.env.PORT || 3000;
+mongoose.connect(process.env.DATABASEURL || "mongodb://localhost/yelp_camp_v12");
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
@@ -56,6 +58,6 @@ app.use('/campgrounds/:id/comments', commentRoutes);
 // =====================
 // START SERVER
 // =====================
-app.listen(3000, () => {
+app.listen(port, () => {
 	console.log("YelpCamp server is listening on port 3000");
 });
