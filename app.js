@@ -1,9 +1,10 @@
 // =====================
-// YELPCAMP APP v12.0
+// YELPCAMP APP v13.0
 // =====================
 var express 		= require("express"),
 	app 			= express(),
 	bodyParser 		= require("body-parser"),
+	dotenv			= require('dotenv').config(),
 	mongoose 		= require("mongoose"),
 	flash			= require('connect-flash'),
 	passport		= require('passport'),
@@ -14,20 +15,30 @@ var express 		= require("express"),
 	seedDB			= require("./seeds"),
 	methodOverride	= require("method-override");
 
+const port	= process.env.PORT || 3000,
+	  url	= process.env.DATABASEURL || "mongodb://localhost/yelp_camp_v12";
+
 // Requiring routes
 var commentRoutes		= require('./routes/comments'),
 	campgroundRoutes	= require('./routes/campgrounds'),
 	indexRoutes			= require('./routes/index');
 
-mongoose.set('useNewUrlParser', true);
-mongoose.set('useUnifiedTopology', true);
+// Connect to DB
+mongoose.connect(url, {
+	useNewUrlParser: true,
+	useCreateIndex: true,
+	useUnifiedTopology: true
+}).then(() => {
+	console.log('Connected to DB!');
+}).catch(err => {
+	console.log('ERROR: ', err.message);
+});
 
-const port = process.env.PORT || 3000;
-mongoose.connect(process.env.DATABASEURL || "mongodb://localhost/yelp_camp_v12");
+// Package Config
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
-console.log(__dirname);
+// console.log(__dirname);
 // seedDB(); //seed the database
 app.use(methodOverride("_method"));
 app.use(flash());
@@ -59,5 +70,5 @@ app.use('/campgrounds/:id/comments', commentRoutes);
 // START SERVER
 // =====================
 app.listen(port, () => {
-	console.log("YelpCamp server is listening on port 3000");
+	console.log("YelpCamp server is listening!");
 });
